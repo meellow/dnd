@@ -1,22 +1,32 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { openBrowserAsync } from "expo-web-browser";
+import { StyleSheet, Text, View } from "react-native";
+
+function Attribute(props: { name: string; value: number }) {
+  let mod = Math.floor(props.value / 2 - 5);
+  let sign = "";
+  if (mod >= 0) {
+    sign = "+";
+  }
+  return (
+    <View style={styles.attrBox}>
+      <Text style={styles.attrName}>{props.name}</Text>
+      <Text style={styles.attrMod}>
+        {sign}
+        {mod}
+      </Text>
+    </View>
+  );
+}
 
 export default function App() {
-  const [counter, setCounter] = useState(0);
-
-  function onPress() {
-    setCounter(counter + 1);
-    console.warn("Yay, you pushed the button", counter + 1, "times!🎉");
-    openBrowserAsync("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.fancyText}>Welcome to your custom DnD App!✨</Text>
-      <Button title="Continue" onPress={onPress} />
-      <StatusBar style="auto" />
+      <Attribute name="Stärke" value={14} />
+      <Attribute name="Geschicklichkeit" value={18} />
+      <Attribute name="Konstitution" value={16 + 2} />
+      <Attribute name="Intelligenz" value={9} />
+      <Attribute name="Weisheit" value={11} />
+      <Attribute name="Charisma" value={14} />
     </View>
   );
 }
@@ -26,12 +36,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+    paddingHorizontal: 30,
+  },
+  attrBox: {
+    width: 120,
+    height: 120,
+    backgroundColor: "#0a0",
+    alignItems: "center",
     justifyContent: "center",
   },
-  fancyText: {
-    backgroundColor: "#ffa500",
-    borderRadius: 10,
-    overflow: "hidden",
-    padding: 40,
+  attrName: {
+    color: "#fff",
+  },
+  attrMod: {
+    color: "#fff",
+    fontSize: 25,
+    fontWeight: "bold",
   },
 });
